@@ -1,0 +1,98 @@
+html {
+    font-family: 'Orbitron', sans-serif;
+}
+a {
+    text-decoration: none;
+}
+.logoTop {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 98px;
+    background: #486574;
+}
+nav  {
+    border-style: solid;
+    border-top: 22px;
+    border-bottom: black 1px;
+    padding: 5px 0 5px;
+}
+
+main {
+    margin: 0 auto;
+    width: 98%;
+}
+
+.content {
+    display: grid;
+    grid-template-columns: 0.8fr 3fr 0.8fr;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+}
+.item {
+    display: grid;
+    grid-gap: 4px;
+    grid-template-columns: 100%;
+    grid-auto-rows: auto;
+    padding: 5px;
+}
+.item * {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+img.itemImg {
+    width: 100%;
+    height:280px;
+}
+nav a {
+    margin-left: 25px;
+    color:black;
+}
+nav a:hover {
+    border-style: solid;
+    border-right: aqua;
+    background: #dddddd;
+}
+a.gameLink {
+    color:black;
+}
+a.gameLink:hover {
+    background: #dddddd;
+    border-radius: 5px;
+    transform: scale(1.1);
+}
+#blockMiddle {
+    border-right: solid black 1px;
+    border-left: solid black 1px;
+}
+.itemAlone {
+    display: grid;
+    grid-template-columns: 1fr 1fr ;
+}
+.itemAlone div {
+    padding: 5px;
+    margin: 5px;
+    background: #dddddd;
+    border-radius: 5px 5px 50px 5px;
+}
+.itemAlone img {
+    grid-column: 1;
+    grid-row: 1/5;
+    width: 400px;
+    height: 560px;
+}
+.gridAll {
+    display: grid;
+    grid-gap: 5px 5px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+.gridOne {}
+
+
