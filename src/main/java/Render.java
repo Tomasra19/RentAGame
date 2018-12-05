@@ -71,16 +71,29 @@ public class Render {
 
     }
     public String renderCalendar() {
-
         String index = "";
-
         try {
             index = String.valueOf(Jsoup.parse(new File("C:\\Users\\admin\\Desktop\\Baigiamasis\\Java\\src\\main\\resources\\html\\calendar.html"),"UTF-8"));
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return index;
+    }
+
+    public String renderContacts() {
+        String index = "";
+            try {
+                index = String.valueOf(Jsoup.parse(new File("C:\\Users\\admin\\Desktop\\Baigiamasis\\Java\\src\\main\\resources\\html\\index1.html"), "UTF-8"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        String contactPageHtml = "";
+        try {
+            contactPageHtml = String.valueOf(Jsoup.parse(new File("C:\\Users\\admin\\Desktop\\Baigiamasis\\Java\\src\\main\\resources\\html\\contacts.html"), "UTF-8"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return index.replace("{games}",contactPageHtml);
     }
 
 }

@@ -13,7 +13,6 @@ public class Json {
             Writer writer = new FileWriter("C:\\Users\\admin\\Desktop\\Baigiamasis\\Java\\src\\main\\resources\\public\\json.json");
             gson.toJson(orders, writer);
             writer.flush(); //flush data to file   <---
-            writer.close(); //close write
         } catch (IOException e) {
             e.printStackTrace();
         }
