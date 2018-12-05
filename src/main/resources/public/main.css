@@ -95,4 +95,32 @@ a.gameLink:hover {
 }
 .gridOne {}
 
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    border-radius: 5px;
+    margin-left: 5px;
+}
+.button:hover {
+    background-color: #e60000;
+    cursor: pointer;
+}
+#blockLeft #blockRight {
+
+    text-align:center;
+}
+.rek {
+
+    font-size: 30px;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+}
+
+
 

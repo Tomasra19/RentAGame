@@ -1,9 +1,6 @@
 import org.apache.commons.dbcp2.BasicDataSource;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class Database {
@@ -60,7 +57,7 @@ public class Database {
         return games;
     }
 
-    public void insert(String name, String platform, int price, String imgURL) {
+    public void insertGame(String name, String platform, int price, String imgURL) {
         String query = "INSERT INTO games (name, platform, price, imgURL) " +
                 "VALUES ('" + name + "', '" + platform + "', '" + price + "', " + imgURL + ")";
         try(Connection c = dataSource.getConnection();
@@ -92,5 +89,53 @@ public class Database {
         }
         System.out.println(game.getId());
         return game;
+    }
+    public void insertOrder (String name,String platform, String startDate, String returnDate) {
+            String query = "INSERT INTO rentorders (name, platform, startDate, returnDate) VALUES (?, ?, ?, ?)";
+            try(Connection connection = dataSource.getConnection();
+                PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setString(1,name);
+                statement.setString(2,platform);
+                statement.setString(3,startDate);
+                statement.setString(4,returnDate);
+                statement.executeUpdate();
+//                Statement statement = connection.createStatement()) {
+//                int count = statement.executeUpdate(query);
+//                System.out.println("Rows updated: " + count);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+    }
+    public ArrayList<CalendarObject> getOrders() {
+        String query = "SELECT * FROM rentorders";
+        ArrayList<CalendarObject> orders = new ArrayList<>();
+
+        try(Connection connection = dataSource.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query)) {
+            while (resultSet.next()) {
+                String platform = resultSet.getString("platform");
+                if (platform.equals("PS4")) {
+                    CalendarObject order = new CalendarObject(
+                            resultSet.getInt("id"),
+                            resultSet.getString("name"),
+                            resultSet.getString("startDate"),
+                            resultSet.getString("returnDate"),
+                            "#368ce7");
+                    orders.add(order);
+                } else {
+                    CalendarObject order = new CalendarObject(
+                            resultSet.getInt("id"),
+                            resultSet.getString("name"),
+                            resultSet.getString("startDate"),
+                            resultSet.getString("returnDate"),
+                            "green");
+                    orders.add(order);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return orders;
     }
 }

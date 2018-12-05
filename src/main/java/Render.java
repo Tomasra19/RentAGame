@@ -70,6 +70,18 @@ public class Render {
         return index.replace("{games}", gamePageHtml);
 
     }
+    public String renderCalendar() {
+
+        String index = "";
+
+        try {
+            index = String.valueOf(Jsoup.parse(new File("C:\\Users\\admin\\Desktop\\Baigiamasis\\Java\\src\\main\\resources\\html\\calendar.html"),"UTF-8"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return index;
+    }
 
 }
 
