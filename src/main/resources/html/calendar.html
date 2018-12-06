@@ -10,7 +10,23 @@
     <script src='jquery.min.js'></script>
     <script src='moment.min.js'></script>
     <script src='fullcalendar.js'></script>
-    <script src="calendar.js"></script>
+    <!--<script src="calendar.js"></script>-->
+    <script>
+        $(document).ready(function() {
+           $('#calendar').fullCalendar({
+               header: {
+               left: 'prev,next today',
+               center: 'title',
+               right: 'month,basicWeek,basicDay'
+               },
+               editable: false,
+               allDayDefault:true,
+               events: [
+                        {events}
+                        ]
+                    });
+                });
+    </script>
 
 </head>
 <body>

@@ -17,23 +17,23 @@ public class Database {
         dataSource.setValidationQuery("SELECT 1");
     }
 
-    public void select() {
-        String query = "SELECT * FROM games";
-        try(Connection connection = dataSource.getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(query)) {
-            while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                String platform = resultSet.getString("platform");
-                int price = resultSet.getInt("price");
-                String imgURL = resultSet.getString("imgURL");
-                System.out.println(id + name +platform +price + imgURL);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void select() {
+//        String query = "SELECT * FROM games";
+//        try(Connection connection = dataSource.getConnection();
+//            Statement statement = connection.createStatement();
+//            ResultSet resultSet = statement.executeQuery(query)) {
+//            while (resultSet.next()) {
+//                int id = resultSet.getInt("id");
+//                String name = resultSet.getString("name");
+//                String platform = resultSet.getString("platform");
+//                int price = resultSet.getInt("price");
+//                String imgURL = resultSet.getString("imgURL");
+//                System.out.println(id + name +platform +price + imgURL);
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
 //Sudet MYSQL y arraylista
     public ArrayList<Game> getGames() {
         String query = "SELECT * FROM games";
@@ -57,18 +57,6 @@ public class Database {
         return games;
     }
 
-    public void insertGame(String name, String platform, int price, String imgURL) {
-        String query = "INSERT INTO games (name, platform, price, imgURL) " +
-                "VALUES ('" + name + "', '" + platform + "', '" + price + "', " + imgURL + ")";
-        try(Connection c = dataSource.getConnection();
-            Statement s = c.createStatement()) {
-            int count = s.executeUpdate(query);
-            System.out.println("Rows updated: " + count);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
     public Game getGameById(int id) {
         String query = "SELECT * FROM games WHERE id =" + id;
         Game game = new Game();
@@ -87,24 +75,20 @@ public class Database {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(game.getId());
         return game;
     }
     public void insertOrder (String name,String platform, String startDate, String returnDate) {
-            String query = "INSERT INTO rentorders (name, platform, startDate, returnDate) VALUES (?, ?, ?, ?)";
-            try(Connection connection = dataSource.getConnection();
-                PreparedStatement statement = connection.prepareStatement(query)) {
-                statement.setString(1,name);
-                statement.setString(2,platform);
-                statement.setString(3,startDate);
-                statement.setString(4,returnDate);
-                statement.executeUpdate();
-//                Statement statement = connection.createStatement()) {
-//                int count = statement.executeUpdate(query);
-//                System.out.println("Rows updated: " + count);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+        String query = "INSERT INTO rentorders (name, platform, startDate, returnDate) VALUES (?, ?, ?, ?)";
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1,name);
+            statement.setString(2,platform);
+            statement.setString(3,startDate);
+            statement.setString(4,returnDate);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     public ArrayList<CalendarObject> getOrders() {
         String query = "SELECT * FROM rentorders";
@@ -115,10 +99,14 @@ public class Database {
             ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
                 String platform = resultSet.getString("platform");
+                String name = resultSet.getString("name");
+                if (name.contains("'")) {
+                    name = name.replace("'","&#39;");
+                }
                 if (platform.equals("PS4")) {
                     CalendarObject order = new CalendarObject(
                             resultSet.getInt("id"),
-                            resultSet.getString("name"),
+                            name,
                             resultSet.getString("startDate"),
                             resultSet.getString("returnDate"),
                             "#368ce7");
@@ -126,7 +114,7 @@ public class Database {
                 } else {
                     CalendarObject order = new CalendarObject(
                             resultSet.getInt("id"),
-                            resultSet.getString("name"),
+                            name,
                             resultSet.getString("startDate"),
                             resultSet.getString("returnDate"),
                             "green");
