@@ -13,7 +13,7 @@ public class Render {
     Database db = new Database();
 
     //txt to string
-    private static String readLineByLineJava8(String filePath)
+    public static String fileToString(String filePath)
     {
         StringBuilder contentBuilder = new StringBuilder();
         try (Stream<String> stream = Files.lines( Paths.get(filePath), StandardCharsets.UTF_8))
@@ -104,7 +104,7 @@ public class Render {
             e.printStackTrace();
         }
         String path = "C:\\Users\\admin\\Desktop\\Baigiamasis\\Java\\src\\main\\resources\\html\\jstemplate1.txt";
-        String jsTemplate = readLineByLineJava8(path);
+        String jsTemplate = fileToString(path);
 
 
         String jsEventArray = "";

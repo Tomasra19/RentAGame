@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <title>Pagrindinis</title>
     <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="main.css">
     <link rel='stylesheet' href='fullcalendar.css' />
     <script src='jquery.min.js'></script>
     <script src='moment.min.js'></script>
     <script src='fullcalendar.js'></script>
-    <!--<script src="calendar.js"></script>-->
     <script>
         $(document).ready(function() {
            $('#calendar').fullCalendar({
@@ -26,6 +26,7 @@
                         ]
                     });
                 });
+                $('.fc-event-content, .fc-event-time, .fc-event-title').css('font-size', '10px');
     </script>
 
 </head>

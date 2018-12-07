@@ -16,25 +16,7 @@ public class Database {
         dataSource.setInitialSize(1);
         dataSource.setValidationQuery("SELECT 1");
     }
-
-//    public void select() {
-//        String query = "SELECT * FROM games";
-//        try(Connection connection = dataSource.getConnection();
-//            Statement statement = connection.createStatement();
-//            ResultSet resultSet = statement.executeQuery(query)) {
-//            while (resultSet.next()) {
-//                int id = resultSet.getInt("id");
-//                String name = resultSet.getString("name");
-//                String platform = resultSet.getString("platform");
-//                int price = resultSet.getInt("price");
-//                String imgURL = resultSet.getString("imgURL");
-//                System.out.println(id + name +platform +price + imgURL);
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//Sudet MYSQL y arraylista
+//Sudet visus games y arraylista
     public ArrayList<Game> getGames() {
         String query = "SELECT * FROM games";
         ArrayList<Game> games = new ArrayList<>();
@@ -90,6 +72,7 @@ public class Database {
             e.printStackTrace();
         }
     }
+
     public ArrayList<CalendarObject> getOrders() {
         String query = "SELECT * FROM rentorders";
         ArrayList<CalendarObject> orders = new ArrayList<>();
@@ -98,26 +81,20 @@ public class Database {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query)) {
             while (resultSet.next()) {
+                int id = resultSet.getInt("id");
                 String platform = resultSet.getString("platform");
+                String startDate = resultSet.getString("startDate");
+                String returnDate = resultSet.getString("returnDate");
                 String name = resultSet.getString("name");
                 if (name.contains("'")) {
-                    name = name.replace("'","&#39;");
+                    name = name.replace("'","");
                 }
+                String finalname = name + "/Order id#" + id;
                 if (platform.equals("PS4")) {
-                    CalendarObject order = new CalendarObject(
-                            resultSet.getInt("id"),
-                            name,
-                            resultSet.getString("startDate"),
-                            resultSet.getString("returnDate"),
-                            "#368ce7");
+                    CalendarObject order = new CalendarObject(id, finalname, startDate, returnDate,"#368ce7");
                     orders.add(order);
                 } else {
-                    CalendarObject order = new CalendarObject(
-                            resultSet.getInt("id"),
-                            name,
-                            resultSet.getString("startDate"),
-                            resultSet.getString("returnDate"),
-                            "green");
+                    CalendarObject order = new CalendarObject( id, finalname, startDate, returnDate,"#0b903f");
                     orders.add(order);
                 }
             }

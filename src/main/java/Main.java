@@ -1,10 +1,5 @@
 import spark.*;
 
-import java.io.File;
-import java.util.ArrayList;
-
-
-
 
 public class Main {
 
@@ -12,14 +7,13 @@ public class Main {
 
         Render r = new Render();
         Database db = new Database();
-        Json json = new Json();
+        //Spark
         Spark.staticFiles.location("/public");
         Spark.port(1234);
         //Home route
         Spark.get("/home", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
-
                 return r.renderAllGames();
             }
         });
@@ -34,9 +28,6 @@ public class Main {
                 String returnDate = request.queryParams("returnDate");
                 System.out.println(name + returnDate + startDate);
                 db.insertOrder(name, platform, startDate,returnDate);
-//                ArrayList<CalendarObject> order = db.getOrders();
-//                json.writeArrayToJson(order);
-
                 return "Pavyko";
             }
         });
@@ -44,7 +35,6 @@ public class Main {
         Spark.get("/calendar", new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
-
                 return r.renderCalendar();
             }
         });

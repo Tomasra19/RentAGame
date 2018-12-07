@@ -2,5 +2,6 @@
 title  : '{title}',
 start  : '{startDate}',
 end    : '{endDate}',
-colour : '{colour}'
+color : '{colour}',
+allDay : true
 },
